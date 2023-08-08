@@ -1,25 +1,49 @@
 import 'package:flutter/material.dart';
 
-class CurrencyConverterBody extends StatelessWidget {
+class CurrencyConverterBody extends StatefulWidget {
   const CurrencyConverterBody({super.key});
 
+  @override
+  State<CurrencyConverterBody> createState() => _CurrencyConverterBodyState();
+}
+
+class _CurrencyConverterBodyState extends State<CurrencyConverterBody> {
+  double result = 0;
+  final TextEditingController currencyTextEditingController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     const borderProperties = OutlineInputBorder(
         borderSide: BorderSide(width: 2.0, style: BorderStyle.solid),
         borderRadius: BorderRadius.all(Radius.circular(10)));
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            "0",
-            style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+          Container(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "NPR",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(width: 20),
+                Text(
+                  '$result',
+                  style: const TextStyle(
+                      fontSize: 50, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
           ),
           const SizedBox(height: 80),
           Container(
             padding: const EdgeInsets.all(20),
             child: TextField(
+              controller: currencyTextEditingController,
               decoration: InputDecoration(
                   hintText: "please enter amount",
                   prefixIcon: const Icon(Icons.monetization_on_outlined),
@@ -36,7 +60,10 @@ class CurrencyConverterBody extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: ElevatedButton(
                 onPressed: () {
-                  debugPrint("button clicked");
+                  setState(() {
+                    result =
+                        double.parse(currencyTextEditingController.text) * 136;
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                   elevation: 7,
@@ -59,3 +86,8 @@ class CurrencyConverterBody extends StatelessWidget {
     );
   }
 }
+// class CurrencyConverterBodyy extends StatelessWidget {
+//   const CurrencyConverterBodyy({super.key});
+
+  
+// }
